@@ -1,0 +1,24 @@
+<?php
+require_once __DIR__ . '/../includes/auth.php';
+require_once __DIR__ . '/../includes/response.php';
+exigirMetodo('POST');
+$body=corpoRequisicao();
+$perfil=strtolower(trim((string)($body['perfil'] ?? 'aluno')));
+if ($perfil !== 'aluno') erro('O cadastro de usuários institucionais é controlado pela organização. Use o acesso fornecido pela instituição.',403);
+$ra=trim((string)($body['ra'] ?? ''));
+$senhaNova=(string)($body['senha'] ?? '');
+$confirm=(string)($body['confirmacao'] ?? '');
+if ($ra==='' || strlen($ra)>20) erro('Informe um RA válido.',422);
+if ($senhaNova==='' || $senhaNova!==$confirm) erro('As senhas não conferem.',422);
+if (strlen($senhaNova)<8 || !preg_match('/[A-Za-z]/',$senhaNova) || !preg_match('/\\d/',$senhaNova)) erro('A senha deve ter ao menos 8 caracteres, com letras e números.',422);
+$pdo=getDB();
+$stmt=$pdo->prepare('SELECT id,nome,status_matricula,senha_trocada FROM alunos WHERE ra=:ra LIMIT 1');
+$stmt->execute(['ra'=>$ra]);
+$a=$stmt->fetch();
+if (!$a) erro('RA não encontrado na base validada pela equipe pedagógica. Procure a Coordenação Pedagógica da sua unidade.',404);
+if ($a['status_matricula']!=='ativo') erro('A matrícula não está ativa. Procure a Coordenação Pedagógica.',403);
+if ((int)$a['senha_trocada']===1) erro('Este cadastro já foi ativado. Use “Esqueci minha senha” ou entre com sua senha.',409);
+$upd=$pdo->prepare('UPDATE alunos SET senha_hash=:h, senha_trocada=1 WHERE id=:id');
+$upd->execute(['h'=>password_hash($senhaNova,PASSWORD_DEFAULT),'id'=>$a['id']]);
+registrarLog('aluno',(int)$a['id'],'ativar_cadastro','Cadastro ativado pelo RA');
+sucesso(['nome'=>$a['nome']], 'Cadastro ativado com sucesso. Agora você já pode entrar na plataforma.');

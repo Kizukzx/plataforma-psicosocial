@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plataforma PPA — SENAI/PE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
+<style>
+  :root {
+    --bg: #f5f4f0;
+    --surface: #ffffff;
+    --surface2: #f0efe9;
+    --border: #e2e0d8;
+    --border2: #ccc9bc;
+    --text: #1a1916;
+    --text2: #6b6860;
+    --text3: #a09d96;
+    --purple: #4c45b0;
+    --purple-light: #eeecfc;
+    --purple-dark: #342f8a;
+    --green: #2d7a4f;
+    --green-light: #e6f4ec;
+    --amber: #9a5f0a;
+    --amber-light: #fef3e2;
+    --red: #b53030;
+    --red-light: #fdeaea;
+    --blue: #1a5fa8;
+    --blue-light: #e8f2fc;
+    --radius: 10px;
+    --radius-lg: 14px;
+    --shadow: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+    --shadow-md: 0 4px 12px rgba(0,0,0,.08), 0 2px 4px rgba(0,0,0,.05);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  /* ── LOGIN ── */
+  #login-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+  }
+
+  .login-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 40px;
+    width: 380px;
+    box-shadow: var(--shadow-md);
+  }
+
+  .login-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .login-logo-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--purple);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 20px;
+  }
+
+  .login-logo-text .brand { font-size: 17px; font-weight: 600; color: var(--text); }
+  .login-logo-text .sub { font-size: 12px; color: var(--text2); }
+
+  .login-title { font-size: 20px; font-weight: 600; margin-bottom: 6px; }
+  .login-sub { font-size: 13px; color: var(--text2); margin-bottom: 24px; }
+
+  .profile-select {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .profile-opt {
+    padding: 10px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all .15s;
+    text-align: center;
+  }
+
+  .profile-opt:hover { border-color: var(--purple); background: var(--purple-light); }
+  .profile-opt.active { border-color: var(--purple); background: var(--purple-light); }
+  .profile-opt i { font-size: 20px; color: var(--purple); display: block; margin-bottom: 4px; }
+  .profile-opt .p-name { font-size: 12px; font-weight: 500; }
+  .profile-opt .p-role { font-size: 11px; color: var(--text2); }
+
+  .form-group { margin-bottom: 14px; }
+  .form-label { display: block; font-size: 12px; font-weight: 500; color: var(--text2); margin-bottom: 6px; }
+
+  .form-input, .form-select, .form-textarea {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    transition: border-color .15s;
+    outline: none;
+  }
+
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px rgba(76,69,176,.1);
+  }
+
+  .form-textarea { resize: vertical; min-height: 90px; }
+
+  /* ── BUTTONS ── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all .15s;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .btn:hover { background: var(--surface2); border-color: var(--border2); }
+  .btn:active { transform: scale(.98); }
+
+  .btn-primary {
+    background: var(--purple);
+    color: #fff;
+    border-color: var(--purple);
+  }
+  .btn-primary:hover { background: var(--purple-dark); border-color: var(--purple-dark); }
+
+  .btn-danger { background: var(--red); color: #fff; border-color: var(--red); }
+  .btn-danger:hover { background: #9a2424; }
+
+  .btn-sm { padding: 5px 10px; font-size: 12px; }
+  .btn-full { width: 100%; justify-content: center; }
+
+  /* ── APP SHELL ── */
+  #app-page { display: none; min-height: 100vh; display: none; flex-direction: row; }
+
+  .sidebar {
+    width: 230px;
+    min-width: 230px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    z-index: 10;
+  }
+
+  .sidebar-logo {
+    padding: 18px 16px 14px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .sidebar-logo-icon {
+    width: 34px; height: 34px;
+    background: var(--purple);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 18px; flex-shrink: 0;
+  }
+
+  .sidebar-logo .brand { font-size: 14px; font-weight: 600; }
+  .sidebar-logo .sub { font-size: 11px; color: var(--text2); }
+
+  .sidebar-user {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .avatar {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: var(--purple-light);
+    color: var(--purple);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 600; flex-shrink: 0;
+  }
+
+  .avatar-lg {
+    width: 44px; height: 44px;
+    font-size: 15px;
+  }
+
+  .user-name { font-size: 13px; font-weight: 500; line-height: 1.3; }
+  .user-role { font-size: 11px; color: var(--text2); }
+
+  .nav { flex: 1; padding: 10px 0; overflow-y: auto; }
+
+  .nav-section {
+    padding: 10px 16px 4px;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: .07em;
+  }
+
+  .nav-item {
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    color: var(--text2);
+    font-size: 13px;
+    border-left: 2.5px solid transparent;
+    transition: all .13s;
+    user-select: none;
+  }
+
+  .nav-item i { font-size: 17px; }
+  .nav-item:hover { background: var(--surface2); color: var(--text); }
+
+  .nav-item.active {
+    background: var(--purple-light);
+    color: var(--purple);
+    border-left-color: var(--purple);
+    font-weight: 500;
+  }
+
+  .sidebar-footer {
+    padding: 12px 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── MAIN CONTENT ── */
+  .main {
+    margin-left: 230px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  .topbar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 9;
+  }
+
+  .topbar-left { display: flex; align-items: center; gap: 12px; }
+  .topbar-title { font-size: 16px; font-weight: 600; }
+  .topbar-actions { display: flex; gap: 8px; align-items: center; }
+
+  .content { padding: 24px; flex: 1; }
+
+  /* ── SCREENS ── */
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  /* ── BADGES ── */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  .badge-purple { background: var(--purple-light); color: var(--purple); }
+  .badge-green { background: var(--green-light); color: var(--green); }
+  .badge-amber { background: var(--amber-light); color: var(--amber); }
+  .badge-red { background: var(--red-light); color: var(--red); }
+  .badge-blue { background: var(--blue-light); color: var(--blue); }
+  .badge-gray { background: var(--surface2); color: var(--text2); }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 18px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+  }
+
+  .card-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  /* ── GRID ── */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+
+  /* ── METRICS ── */
+  .metric {
+    background: var(--surface2);
+    border-radius: var(--radius);
+    padding: 16px;
+  }
+
+  .metric-label { font-size: 12px; color: var(--text2); margin-bottom: 8px; }
+  .metric-value { font-size: 26px; font-weight: 600; line-height: 1; }
+  .metric-sub { font-size: 11px; color: var(--text3); margin-top: 6px; }
+  .metric-up { color: var(--green); }
+  .metric-down { color: var(--red); }
+
+  /* ── TABLE ── */
+  .table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .table th {
+    text-align: left;
+    padding: 9px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text2);
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface2);
+  }
+  .table th:first-child { border-radius: var(--radius) 0 0 0; }
+  .table th:last-child { border-radius: 0 var(--radius) 0 0; }
+  .table td { padding: 11px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .table tr:last-child td { border-bottom: none; }
+  .table tbody tr:hover td { background: var(--surface2); }
+
+  /* ── ALERTS ── */
+  .alert {
+    padding: 12px 16px;
+    border-radius: var(--radius);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .alert i { font-size: 17px; flex-shrink: 0; margin-top: 1px; }
+  .alert-warn { background: var(--amber-light); color: #6b3d07; }
+  .alert-danger { background: var(--red-light); color: #7a1e1e; }
+  .alert-info { background: var(--blue-light); color: #0e3d6e; }
+  .alert-success { background: var(--green-light); color: #1a4d30; }
+
+  /* ── AGENDA SLOTS ── */
+  .slot {
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background .12s;
+  }
+  .slot:hover { background: var(--surface2); }
+  .slot.green { border-left: 3px solid var(--green); }
+  .slot.amber { border-left: 3px solid #e08a10; }
+  .slot.red { border-left: 3px solid var(--red); }
+  .slot-name { font-size: 13px; font-weight: 500; }
+  .slot-meta { font-size: 11px; color: var(--text2); margin-top: 2px; }
+
+  /* ── TABS ── */
+  .tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 18px;
+    gap: 0;
+  }
+
+  .tab {
+    padding: 9px 18px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text2);
+    cursor: pointer;
+    border-bottom: 2.5px solid transparent;
+    margin-bottom: -1px;
+    transition: all .13s;
+  }
+
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--purple); border-bottom-color: var(--purple); }
+
+  /* ── STATUS DOTS ── */
+  .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; flex-shrink: 0; }
+  .dot-green { background: var(--green); }
+  .dot-amber { background: #e08a10; }
+  .dot-red { background: var(--red); }
+
+  /* ── PROGRESS ── */
+  .progress-bar { height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; margin-top: 8px; }
+  .progress-fill { height: 100%; background: var(--purple); border-radius: 3px; }
+
+  /* ── BAR CHART (mini) ── */
+  .mini-chart { display: flex; align-items: flex-end; gap: 5px; height: 64px; }
+  .bar { flex: 1; border-radius: 3px 3px 0 0; background: var(--purple); opacity: .65; transition: opacity .15s; cursor: pointer; }
+  .bar:hover { opacity: 1; }
+  .bar.secondary { background: #9FE1CB; }
+  .chart-labels { display: flex; justify-content: space-between; font-size: 10px; color: var(--text3); margin-top: 4px; }
+
+  /* ── SOS ── */
+  .sos-btn {
+    width: 100%;
+    padding: 18px;
+    background: var(--red);
+    border: none;
+    border-radius: var(--radius-lg);
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background .15s;
+    box-shadow: 0 4px 14px rgba(181,48,48,.3);
+  }
+  .sos-btn:hover { background: #9a2424; }
+
+  /* ── TERMO EMOCIONAL ── */
+  .termo-opts { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+  .termo-opt {
+    padding: 8px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all .13s;
+  }
+  .termo-opt:hover { border-color: var(--purple); background: var(--purple-light); color: var(--purple); }
+  .termo-opt.sel { background: var(--purple); color: #fff; border-color: var(--purple); }
+
+  /* ── OVERLAY ── */
+  .overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.45);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .overlay.show { display: flex; }
+
+  .modal {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    width: 400px;
+    max-width: 96vw;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border);
+  }
+
+  .modal-title { font-size: 16px; font-weight: 600; margin-bottom: 16px; }
+
+  /* ── CALENDAR ── */
+  .cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 2px; text-align: center; font-size: 12px; }
+  .cal-day { padding: 6px 4px; cursor: pointer; border-radius: 50%; transition: background .12s; }
+  .cal-day:hover { background: var(--surface2); }
+  .cal-day.today { background: var(--purple); color: #fff; border-radius: 50%; }
+  .cal-day.has-event { position: relative; }
+  .cal-day.has-event::after { content:''; position:absolute; bottom:2px; left:50%; transform:translateX(-50%); width:4px; height:4px; background: var(--purple); border-radius:50%; }
+  .cal-header { font-weight: 600; color: var(--text2); padding: 4px; }
+
+  /* ── LEGEND ── */
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--text2); margin-top: 12px; }
+  .legend-item { display: flex; align-items: center; gap: 5px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 2px; }
+
+  /* ── DIÁRIO ── */
+  .diary-entry {
+    padding: 12px 14px;
+    background: var(--surface2);
+    border-radius: var(--radius);
+    margin-bottom: 8px;
+    border-left: 3px solid var(--purple);
+  }
+  .diary-date { font-size: 11px; color: var(--text3); margin-bottom: 4px; }
+  .diary-text { font-size: 13px; color: var(--text); }
+
+  /* ── TRILHA ── */
+  .trilha-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    transition: box-shadow .15s;
+  }
+  .trilha-card:hover { box-shadow: var(--shadow-md); }
+  .trilha-icon { width: 44px; height: 44px; border-radius: var(--radius); display:flex; align-items:center; justify-content:center; font-size: 22px; flex-shrink:0; }
+  .trilha-title { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+  .trilha-desc { font-size: 12px; color: var(--text2); }
+
+  /* ── MATERIAL CARD ── */
+  .material-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    transition: box-shadow .15s;
+  }
+  .material-card:hover { box-shadow: var(--shadow-md); }
+  .material-card i { font-size: 26px; color: var(--purple); display:block; margin-bottom: 10px; }
+  .material-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .material-meta { font-size: 11px; color: var(--text2); margin-bottom: 12px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .sidebar { width: 200px; min-width: 200px; }
+    .main { margin-left: 200px; }
+    .grid4 { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 700px) {
+    .sidebar { display: none; }
+    .main { margin-left: 0; }
+    .grid2, .grid3, .grid4 { grid-template-columns: 1fr; }
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+  /* ── ANIMATIONS ── */
+  .screen.active { animation: fadeIn .2s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+
+/* ── AUTH TABS + FEED ── */
+.auth-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:var(--bg);padding:4px;border-radius:10px;margin:0 0 18px}
+.auth-tab{border:0;background:transparent;padding:9px 6px;border-radius:7px;font:inherit;font-size:12px;color:var(--text2);cursor:pointer}
+.auth-tab.active{background:var(--surface);color:var(--text);box-shadow:var(--shadow-sm);font-weight:600}
+.auth-panel{display:none}.auth-panel.active{display:block}
+.auth-note{font-size:11px;color:var(--text2);background:var(--bg);padding:10px;border-radius:8px;margin-top:10px}
+.feed-wrap{max-width:780px;margin:0 auto}.feed-composer{padding:18px;margin-bottom:16px}.feed-post{padding:0;margin-bottom:16px;overflow:hidden}.feed-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px 10px}.feed-author{display:flex;align-items:center;gap:10px}.feed-body{padding:0 18px 14px}.feed-title{font-weight:700;margin-bottom:5px}.feed-text{white-space:pre-wrap;font-size:13px;line-height:1.6}.feed-media{margin:0 0 14px;background:var(--bg);display:flex;align-items:center;justify-content:center;min-height:80px}.feed-media img,.feed-media video{max-width:100%;display:block}.feed-actions{display:flex;align-items:center;gap:6px;border-top:1px solid var(--border);padding:10px 18px}.feed-action{border:0;background:transparent;border-radius:7px;padding:7px 10px;cursor:pointer;color:var(--text2);font:inherit;font-size:12px}.feed-action:hover,.feed-action.active{background:var(--bg);color:var(--text)}.feed-comments{border-top:1px solid var(--border);padding:10px 18px}.feed-comment{font-size:12px;margin:7px 0}.feed-comment-form{display:flex;gap:8px;margin-top:10px}.feed-empty{padding:36px;text-align:center;color:var(--text2)}
+</style>
+</head>
+<body>
+
+<!-- ══════════════ LOGIN ══════════════ -->
+<div id="login-page">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="login-logo-icon"><i class="ti ti-heart-handshake"></i></div>
+      <div class="login-logo-text"><div class="brand">PPA — Psicossocial</div><div class="sub">SENAI/PE</div></div>
+    </div>
+    <h2 class="login-title">Bem-vindo(a)</h2>
+    <p class="login-sub">Entre com o perfil correto para acessar a plataforma.</p>
+    <div class="auth-tabs">
+      <button class="auth-tab active" data-auth-tab="entrar" onclick="showAuthTab('entrar')">Entrar</button>
+      <button class="auth-tab" data-auth-tab="cadastro" onclick="showAuthTab('cadastro')">Cadastro</button>
+      <button class="auth-tab" data-auth-tab="recuperar" onclick="showAuthTab('recuperar')">Esqueci minha senha</button>
+    </div>
+
+    <div id="auth-entrar" class="auth-panel active">
+      <div class="profile-select" id="profile-select">
+        <div class="profile-opt active" onclick="selectProfile('psicologa', this)"><i class="ti ti-stethoscope"></i><div class="p-name">Psicóloga</div><div class="p-role">PPA</div></div>
+        <div class="profile-opt" onclick="selectProfile('pedagogica', this)"><i class="ti ti-school"></i><div class="p-name">Pedagógica</div><div class="p-role">Interlocutora</div></div>
+        <div class="profile-opt" onclick="selectProfile('aprendiz', this)"><i class="ti ti-user"></i><div class="p-name">Aprendiz</div><div class="p-role">SENAI/PE</div></div>
+        <div class="profile-opt" onclick="selectProfile('diretoria', this)"><i class="ti ti-building"></i><div class="p-name">Diretoria</div><div class="p-role">Educação</div></div>
+      </div>
+      <div class="form-group"><label class="form-label">Usuário (e-mail ou RA)</label><input type="text" class="form-input" id="login-user" autocomplete="username" placeholder="seuemail@sistemafiepe.org.br"></div>
+      <div class="form-group"><label class="form-label">Senha</label><input type="password" class="form-input" id="login-pass" autocomplete="current-password" placeholder="Sua senha"></div>
+      <div id="login-feedback"></div>
+      <button class="btn btn-primary btn-full" id="login-submit" onclick="doLogin()"><i class="ti ti-login"></i> Entrar na plataforma</button>
+    </div>
+
+    <div id="auth-cadastro" class="auth-panel">
+      <div class="form-group"><label class="form-label">RA do aprendiz</label><input type="text" class="form-input" id="cad-ra" placeholder="Ex.: 20240015"></div>
+      <div class="form-group"><label class="form-label">Nova senha</label><input type="password" class="form-input" id="cad-pass" autocomplete="new-password" placeholder="Mínimo 8 caracteres, com letras e números"></div>
+      <div class="form-group"><label class="form-label">Confirmar senha</label><input type="password" class="form-input" id="cad-pass2" autocomplete="new-password"></div>
+      <button class="btn btn-primary btn-full" onclick="doCadastro()"><i class="ti ti-user-plus"></i> Ativar meu cadastro</button>
+      <div class="auth-note">O cadastro do aprendiz só é ativado quando o RA já estiver na base importada e validada pela equipe pedagógica. Contas institucionais são provisionadas pela organização.</div>
+      <div id="cad-feedback"></div>
+    </div>
+
+    <div id="auth-recuperar" class="auth-panel">
+      <div class="form-group"><label class="form-label">Perfil institucional</label><select class="form-select" id="reset-profile"><option value="psicologo">Psicóloga</option><option value="pedagogo">Pedagógica</option><option value="diretoria">Diretoria</option></select></div>
+      <div class="form-group"><label class="form-label">E-mail institucional</label><input type="email" class="form-input" id="reset-user" placeholder="seuemail@sistemafiepe.org.br"></div>
+      <button class="btn btn-primary btn-full" onclick="requestReset()"><i class="ti ti-mail"></i> Enviar instruções</button>
+      <div class="auth-note">Por segurança, o sistema não confirma se o endereço existe. Em ambiente de desenvolvimento, o link de teste pode aparecer na resposta para facilitar a homologação.</div>
+      <div id="reset-feedback"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ APP ══════════════ -->
+<div id="app-page" style="display:none; min-height:100vh; display:none">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon"><i class="ti ti-heart-handshake"></i></div>
+      <div>
+        <div class="brand">PPA — Psicossocial</div>
+        <div class="sub">SENAI/PE</div>
+      </div>
+    </div>
+    <div class="sidebar-user">
+      <div class="avatar" id="sb-avatar">YA</div>
+      <div>
+        <div class="user-name" id="sb-name">Yasminn Araújo</div>
+        <div class="user-role" id="sb-role">Psicóloga · Cabo S.A.</div>
+      </div>
+    </div>
+    <nav class="nav" id="nav-menu">
+      <!-- dinamicamente gerado pelo JS -->
+    </nav>
+    <div class="sidebar-footer">
+      <button class="btn btn-full" onclick="doLogout()"><i class="ti ti-logout"></i> Sair</button>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-left">
+        <span class="topbar-title" id="page-title">Dashboard</span>
+      </div>
+      <div class="topbar-actions">
+        <span class="badge badge-purple" id="top-badge">Psicóloga</span>
+        <button class="btn btn-primary" id="top-action-btn" onclick="go('atendimento')">
+          <i class="ti ti-plus"></i> Novo atendimento
+        </button>
+      </div>
+    </div>
+
+    <div class="content">
+      <!-- ── DASHBOARD – Psicóloga ── -->
+      <div class="screen active" id="screen-dashboard">
+        <div class="alert alert-danger">
+          <i class="ti ti-alert-triangle"></i>
+          <span><strong>2 alertas:</strong> Lucas Ferreira (2 faltas consecutivas) &nbsp;·&nbsp; Maria Souza (caso prioritário sem agendamento)</span>
+        </div>
+
+        <div class="grid4" style="margin-bottom:16px">
+          <div class="metric">
+            <div class="metric-label">Atendimentos este mês</div>
+            <div class="metric-value">47</div>
+            <div class="metric-sub metric-up">↑ 12% vs. mês ant.</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Aprendizes ativos</div>
+            <div class="metric-value">38</div>
+            <div class="metric-sub">3 prioritários</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Faltas (30 dias)</div>
+            <div class="metric-value">9</div>
+            <div class="metric-sub metric-down">Taxa 19%</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Sessões em grupo</div>
+            <div class="metric-value">6</div>
+            <div class="metric-sub">Este mês</div>
+          </div>
+        </div>
+
+        <div class="grid2">
+          <div>
+            <div class="card">
+              <div class="card-title">Atendimentos hoje — 20/05</div>
+              <div class="slot green">
+                <div>
+                  <div class="slot-name">João Matheus</div>
+                  <div class="slot-meta">14:00 · 30 min · Presencial</div>
+                </div>
+                <span class="badge badge-green">● Confirmado</span>
+              </div>
+              <div class="slot amber">
+                <div>
+                  <div class="slot-name">Ana Lima</div>
+                  <div class="slot-meta">15:00 · 30 min · Remoto</div>
+                </div>
+                <span class="badge badge-amber">● Pendente</span>
+              </div>
+              <div class="slot red">
+                <div>
+                  <div class="slot-name">Carlos Mendes</div>
+                  <div class="slot-meta">16:30 · 30 min · Remoto</div>
+                </div>
+                <span class="badge badge-red">● Urgente</span>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-title">Solicitações pendentes</div>
+              <table class="table">
+                <thead>
+                  <tr><th>Aprendiz</th><th>Motivo</th><th>Data</th><th></th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Vinícius Costa</strong></td>
+                    <td>Ansiedade</td>
+                    <td>19/05</td>
+                    <td style="display:flex;gap:4px">
+                      <button class="btn btn-primary btn-sm">Aceitar</button>
+                      <button class="btn btn-sm">Recusar</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Fernanda Alves</strong></td>
+                    <td>Dif. escolar</td>
+                    <td>18/05</td>
+                    <td style="display:flex;gap:4px">
+                      <button class="btn btn-primary btn-sm">Aceitar</button>
+                      <button class="btn btn-sm">Recusar</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div>
+            <div class="card">
+              <div class="card-title">Atendimentos — últimos 7 dias</div>
+              <div class="mini-chart">
+                <div class="bar" style="height:40%" title="Seg: 4"></div>
+                <div class="bar" style="height:70%" title="Ter: 7"></div>
+                <div class="bar" style="height:50%" title="Qua: 5"></div>
+                <div class="bar" style="height:90%" title="Qui: 9"></div>
+                <div class="bar" style="height:60%" title="Sex: 6"></div>
+                <div class="bar secondary" style="height:30%" title="Sáb: 3"></div>
+                <div class="bar secondary" style="height:10%" title="Dom: 1"></div>
+              </div>
+              <div class="chart-labels">
+                <span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span><span>Dom</span>
+              </div>
+              <div style="margin-top:16px">
+                <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text2);margin-bottom:4px">
+                  <span>Meta mensal (60 atend.)</span>
+                  <span style="color:var(--purple);font-weight:600">47 / 60</span>
+                </div>
+                <div class="progress-bar"><div class="progress-fill" style="width:78%"></div></div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-title">SOS Emocional — ativações recentes</div>
+              <table class="table">
+                <thead><tr><th>Aprendiz</th><th>Motivo</th><th>Status</th></tr></thead>
+                <tbody>
+                  <tr><td>Carlos Mendes</td><td>Crise de ansiedade</td><td><span class="badge badge-red">Urgente</span></td></tr>
+                  <tr><td>Maria Souza</td><td>Conflito familiar</td><td><span class="badge badge-amber">Em triagem</span></td></tr>
+                  <tr><td>Felipe Gomes</td><td>Dificuldade emoc.</td><td><span class="badge badge-green">Atendido</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── AGENDA ── -->
+      <div class="screen" id="screen-agenda">
+        <div class="grid2">
+          <div>
+            <div class="card">
+              <div class="card-title">Maio 2026</div>
+              <div class="cal-grid">
+                <div class="cal-header">D</div><div class="cal-header">S</div><div class="cal-header">T</div>
+                <div class="cal-header">Q</div><div class="cal-header">Q</div><div class="cal-header">S</div><div class="cal-header">S</div>
+                <div></div><div></div><div></div><div></div>
+                <div class="cal-day">1</div><div class="cal-day">2</div><div class="cal-day">3</div>
+                <div class="cal-day">4</div><div class="cal-day">5</div><div class="cal-day has-event">6</div>
+                <div class="cal-day has-event">7</div><div class="cal-day">8</div><div class="cal-day">9</div><div class="cal-day">10</div>
+                <div class="cal-day">11</div><div class="cal-day">12</div><div class="cal-day has-event">13</div>
+                <div class="cal-day">14</div><div class="cal-day">15</div><div class="cal-day">16</div><div class="cal-day">17</div>
+                <div class="cal-day">18</div><div class="cal-day">19</div><div class="cal-day today">20</div>
+                <div class="cal-day has-event">21</div><div class="cal-day">22</div><div class="cal-day has-event">23</div><div class="cal-day">24</div>
+                <div class="cal-day">25</div><div class="cal-day">26</div><div class="cal-day">27</div>
+                <div class="cal-day">28</div><div class="cal-day">29</div><div class="cal-day">30</div><div class="cal-day">31</div>
+              </div>
+              <div class="legend">
+                <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> Confirmado</div>
+                <div class="legend-item"><div class="legend-dot" style="background:#e08a10"></div> Pendente</div>
+                <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div> Urgente/Falta</div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-title">Bloquear horário</div>
+              <div style="font-size:12px;color:var(--text2);margin-bottom:10px">Sessões de 30 min · das 09:00 às 17:00</div>
+              <div class="grid2">
+                <div class="form-group" style="margin-bottom:0">
+                  <label class="form-label">Data</label>
+                  <input type="date" class="form-input" value="2026-05-21">
+                </div>
+                <div class="form-group" style="margin-bottom:0">
+                  <label class="form-label">Horário</label>
+                  <input type="time" class="form-input" value="12:00">
+                </div>
+              </div>
+              <div style="display:flex;gap:8px;margin-top:12px">
+                <span class="badge badge-red" style="padding:5px 12px">Seg 12–14 bloqueado</span>
+              </div>
+              <button class="btn" style="margin-top:10px"><i class="ti ti-lock"></i> Confirmar bloqueio</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">
+              Agenda de 20/05
+              <button class="btn btn-primary btn-sm" onclick="go('atendimento')"><i class="ti ti-plus"></i> Agendar</button>
+            </div>
+            <div class="slot green">
+              <div>
+                <div class="slot-name">João Matheus</div>
+                <div class="slot-meta">14:00 · 30 min · Presencial · Cabo S.A.</div>
+              </div>
+              <span class="badge badge-green">Confirmado</span>
+            </div>
+            <div class="slot amber">
+              <div>
+                <div class="slot-name">Ana Lima</div>
+                <div class="slot-meta">15:00 · 30 min · Remoto</div>
+              </div>
+              <span class="badge badge-amber">Pendente</span>
+            </div>
+            <div class="slot red">
+              <div>
+                <div class="slot-name">Carlos Mendes</div>
+                <div class="slot-meta">16:30 · 30 min · Remoto · Urgente</div>
+              </div>
+              <span class="badge badge-red">Urgente</span>
+            </div>
+            <div style="border-top:1px solid var(--border);margin-top:14px;padding-top:14px">
+              <div class="card-title" style="font-size:13px;margin-bottom:10px">Horários disponíveis</div>
+              <div style="display:flex;gap:6px;flex-wrap:wrap">
+                <span class="badge badge-green" style="padding:5px 12px;cursor:pointer">09:00</span>
+                <span class="badge badge-green" style="padding:5px 12px;cursor:pointer">09:30</span>
+                <span class="badge badge-green" style="padding:5px 12px;cursor:pointer">10:00</span>
+                <span class="badge badge-green" style="padding:5px 12px;cursor:pointer">10:30</span>
+                <span class="badge badge-amber" style="padding:5px 12px">11:00 — pend.</span>
+                <span class="badge badge-gray" style="padding:5px 12px">12:00 — bloq.</span>
+                <span class="badge badge-gray" style="padding:5px 12px">12:30 — bloq.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── APRENDIZES ── -->
+      <div class="screen" id="screen-aprendizes">
+        <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap">
+          <input type="text" class="form-input" style="max-width:260px" placeholder="Buscar por nome, RA ou unidade…">
+          <select class="form-select" style="width:160px">
+            <option>Todos os status</option>
+            <option>Ativo</option><option>Cancelado</option><option>Prioritário</option><option>Arquivado</option>
+          </select>
+          <select class="form-select" style="width:160px">
+            <option>Todas as modalidades</option>
+            <option>Presencial</option><option>Remoto</option><option>EaD</option>
+          </select>
+          <button class="btn btn-primary btn-sm" style="margin-left:auto"><i class="ti ti-upload"></i> Importar planilha</button>
+        </div>
+        <div class="card" style="padding:0;overflow:hidden">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>RA</th><th>Nome</th><th>Curso</th><th>Unidade</th>
+                <th>Modalidade</th><th>Status</th><th>Última sessão</th><th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text2)">20240015</td>
+                <td><strong>João Matheus</strong></td><td>Eletromecânica</td><td>Cabo S.A.</td>
+                <td><span class="badge badge-blue">Presencial</span></td>
+                <td><span class="dot dot-green"></span>Ativo</td><td>19/05/2026</td>
+                <td><button class="btn btn-sm" onclick="openAprendiz()"><i class="ti ti-eye"></i> Ver</button></td>
+              </tr>
+              <tr>
+                <td style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text2)">20240032</td>
+                <td><strong>Ana Lima</strong></td><td>Logística</td><td>Cabo S.A.</td>
+                <td><span class="badge badge-purple">Remoto</span></td>
+                <td><span class="dot dot-green"></span>Ativo</td><td>15/05/2026</td>
+                <td><button class="btn btn-sm"><i class="ti ti-eye"></i> Ver</button></td>
+              </tr>
+              <tr>
+                <td style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text2)">20240047</td>
+                <td><strong>Carlos Mendes</strong></td><td>Informática</td><td>Cabo S.A.</td>
+                <td><span class="badge badge-purple">Remoto</span></td>
+                <td><span class="dot dot-red"></span><span style="color:var(--red);font-weight:500">Prioritário</span></td><td>10/05/2026</td>
+                <td><button class="btn btn-sm"><i class="ti ti-eye"></i> Ver</button></td>
+              </tr>
+              <tr>
+                <td style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text2)">20240061</td>
+                <td><strong>Lucas Ferreira</strong></td><td>Mecatrônica</td><td>Cabo S.A.</td>
+                <td><span class="badge badge-blue">Presencial</span></td>
+                <td><span class="dot dot-amber"></span><span style="color:var(--amber);font-weight:500">2 faltas</span></td><td>05/05/2026</td>
+                <td><button class="btn btn-sm"><i class="ti ti-eye"></i> Ver</button></td>
+              </tr>
+              <tr>
+                <td style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text2)">20240079</td>
+                <td><strong>Maria Souza</strong></td><td>Administração</td><td>Cabo S.A.</td>
+                <td><span class="badge badge-purple">Remoto</span></td>
+                <td><span class="dot dot-red"></span><span style="color:var(--red);font-weight:500">Prioritário</span></td><td>08/05/2026</td>
+                <td><button class="btn btn-sm"><i class="ti ti-eye"></i> Ver</button></td>
+              </tr>
+              <tr>
+                <td style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text2)">20240091</td>
+                <td><strong>Fernanda Alves</strong></td><td>T.I.</td><td>Cabo S.A.</td>
+                <td><span class="badge badge-purple">Remoto</span></td>
+                <td><span class="dot dot-green"></span>Ativo</td><td>17/05/2026</td>
+                <td><button class="btn btn-sm"><i class="ti ti-eye"></i> Ver</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ── REGISTRO DE ATENDIMENTO ── -->
+      <div class="screen" id="screen-atendimento">
+        <div class="tabs">
+          <div class="tab active" onclick="setTab(this,'tab-ead')">EaD / Remoto</div>
+          <div class="tab" onclick="setTab(this,'tab-pres')">Presencial</div>
+          <div class="tab" onclick="setTab(this,'tab-docs')">Documentos</div>
+        </div>
+
+        <div id="tab-ead">
+          <div class="grid2">
+            <div class="card">
+              <div class="card-title">Dados do atendimento</div>
+              <div class="form-group">
+                <label class="form-label">Aprendiz (RA ou nome)</label>
+                <input type="text" class="form-input" placeholder="Ex: João Matheus / 20240015">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Modalidade</label>
+                <select class="form-select"><option>Remoto</option><option>EaD</option></select>
+              </div>
+              <div class="grid2">
+                <div class="form-group">
+                  <label class="form-label">Data</label>
+                  <input type="date" class="form-input" value="2026-05-20">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Horário</label>
+                  <input type="time" class="form-input" value="14:00">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Prioridade</label>
+                <select class="form-select">
+                  <option>Normal</option><option>Prioritário</option><option>Urgente</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Tipo de documento</label>
+                <select class="form-select">
+                  <option>Prontuário de atendimento</option>
+                  <option>Termo de consentimento</option>
+                  <option>Relatório de acompanhamento</option>
+                  <option>Ficha de triagem</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <div class="card">
+                <div class="card-title">Status e observações</div>
+                <div class="form-group">
+                  <label class="form-label">Status da sessão</label>
+                  <div style="display:flex;gap:8px;flex-wrap:wrap">
+                    <span class="badge badge-green" style="cursor:pointer;padding:6px 14px;font-size:12px">● Confirmado</span>
+                    <span class="badge badge-amber" style="cursor:pointer;padding:6px 14px;font-size:12px">● Pendente</span>
+                    <span class="badge badge-red" style="cursor:pointer;padding:6px 14px;font-size:12px">● Ausência</span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Observações clínicas (sigiloso)</label>
+                  <textarea class="form-textarea" placeholder="Anotações da sessão, encaminhamentos, observações relevantes…"></textarea>
+                </div>
+              </div>
+              <div style="display:flex;gap:8px;margin-top:0">
+                <button class="btn btn-primary" style="flex:1"><i class="ti ti-device-floppy"></i> Salvar registro</button>
+                <button class="btn"><i class="ti ti-download"></i> PDF</button>
+                <button class="btn"><i class="ti ti-signature"></i> Assinar</button>
+              </div>
+              <div class="alert alert-info" style="margin-top:12px;font-size:12px">
+                <i class="ti ti-info-circle"></i>
+                <span>Após salvo, o documento só pode ser editado ou excluído com justificativa enviada ao e-mail institucional.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="tab-pres" style="display:none">
+          <div class="grid2">
+            <div class="card">
+              <div class="card-title">Atendimento presencial</div>
+              <div class="form-group">
+                <label class="form-label">Aprendiz</label>
+                <input type="text" class="form-input" placeholder="Nome ou RA">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Unidade</label>
+                <select class="form-select">
+                  <option>Cabo Santo Agostinho</option><option>Goiana</option>
+                  <option>Paulista</option><option>Santo Amaro</option><option>Areias</option>
+                </select>
+              </div>
+              <div class="grid2">
+                <div class="form-group">
+                  <label class="form-label">Data</label>
+                  <input type="date" class="form-input" value="2026-05-20">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Horário</label>
+                  <input type="time" class="form-input" value="09:00">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Prioridade</label>
+                <select class="form-select">
+                  <option>Normal</option><option>Prioritário</option><option>Urgente</option>
+                </select>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-title">Observações da sessão</div>
+              <div class="form-group">
+                <label class="form-label">Notas clínicas</label>
+                <textarea class="form-textarea" placeholder="Anotações da sessão presencial…"></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Status</label>
+                <select class="form-select">
+                  <option>Confirmado</option><option>Pendente</option><option>Ausência</option><option>Cancelado</option>
+                </select>
+              </div>
+              <button class="btn btn-primary btn-full"><i class="ti ti-device-floppy"></i> Salvar atendimento</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="tab-docs" style="display:none">
+          <div class="card">
+            <div class="card-title">
+              Documentos do aprendiz
+              <button class="btn btn-sm"><i class="ti ti-upload"></i> Upload</button>
+            </div>
+            <div class="alert alert-info" style="margin-bottom:14px">
+              <i class="ti ti-shield-lock"></i>
+              <span>Documentos protegidos conforme LGPD. Acesso exclusivo à psicóloga responsável por esta unidade.</span>
+            </div>
+            <table class="table">
+              <thead>
+                <tr><th>Documento</th><th>Tipo</th><th>Data</th><th>Psicóloga</th><th>Ações</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><i class="ti ti-file-text" style="font-size:14px;margin-right:6px;color:var(--purple)"></i>Prontuário #001</td>
+                  <td><span class="badge badge-purple">Prontuário</span></td>
+                  <td>10/05/2026</td><td>Yasminn Araújo</td>
+                  <td style="display:flex;gap:4px">
+                    <button class="btn btn-sm"><i class="ti ti-download"></i></button>
+                    <button class="btn btn-sm"><i class="ti ti-signature"></i></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><i class="ti ti-file-text" style="font-size:14px;margin-right:6px;color:var(--purple)"></i>Ficha de triagem</td>
+                  <td><span class="badge badge-blue">Triagem</span></td>
+                  <td>02/04/2026</td><td>Yasminn Araújo</td>
+                  <td style="display:flex;gap:4px">
+                    <button class="btn btn-sm"><i class="ti ti-download"></i></button>
+                    <button class="btn btn-sm"><i class="ti ti-signature"></i></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><i class="ti ti-file-text" style="font-size:14px;margin-right:6px;color:var(--purple)"></i>Termo de consentimento</td>
+                  <td><span class="badge badge-green">Termo</span></td>
+                  <td>01/04/2026</td><td>Yasminn Araújo</td>
+                  <td style="display:flex;gap:4px">
+                    <button class="btn btn-sm"><i class="ti ti-download"></i></button>
+                    <button class="btn btn-sm"><i class="ti ti-signature"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── GRUPOS ── -->
+      <div class="screen" id="screen-grupo">
+        <div class="grid2" style="margin-bottom:0">
+          <div class="card">
+            <div class="card-title">
+              Sessões em grupo
+              <button class="btn btn-primary btn-sm"><i class="ti ti-plus"></i> Nova sessão</button>
+            </div>
+            <div class="slot green">
+              <div>
+                <div class="slot-name">Saúde Mental &amp; Ansiedade</div>
+                <div class="slot-meta">21/05 · 10:00 · 8 participantes · Remoto</div>
+              </div>
+              <span class="badge badge-green">Confirmado</span>
+            </div>
+            <div class="slot amber">
+              <div>
+                <div class="slot-name">Competências Socioemocionais</div>
+                <div class="slot-meta">23/05 · 14:00 · 5 participantes · Presencial</div>
+              </div>
+              <span class="badge badge-amber">Pendente</span>
+            </div>
+            <div class="slot amber">
+              <div>
+                <div class="slot-name">Gestão do Tempo e Estudos</div>
+                <div class="slot-meta">27/05 · 09:00 · 6 participantes · Remoto</div>
+              </div>
+              <span class="badge badge-amber">Pendente</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Lista de presença — Saúde Mental &amp; Ansiedade</div>
+            <table class="table">
+              <thead><tr><th>Aprendiz</th><th>Status</th><th></th></tr></thead>
+              <tbody>
+                <tr><td>João Matheus</td><td><span class="badge badge-green">Presente</span></td><td><button class="btn btn-sm">Obs.</button></td></tr>
+                <tr><td>Ana Lima</td><td><span class="badge badge-green">Presente</span></td><td><button class="btn btn-sm">Obs.</button></td></tr>
+                <tr><td>Lucas Ferreira</td><td><span class="badge badge-red">Ausente</span></td><td><button class="btn btn-sm">Obs.</button></td></tr>
+                <tr><td>Vinícius Costa</td><td><span class="badge badge-amber">Pendente</span></td><td><button class="btn btn-sm">Obs.</button></td></tr>
+                <tr><td>Fernanda Alves</td><td><span class="badge badge-green">Presente</span></td><td><button class="btn btn-sm">Obs.</button></td></tr>
+              </tbody>
+            </table>
+            <div style="display:flex;gap:8px;margin-top:12px">
+              <button class="btn btn-primary btn-sm"><i class="ti ti-device-floppy"></i> Salvar presença</button>
+              <button class="btn btn-sm"><i class="ti ti-download"></i> Exportar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SOS EMOCIONAL ── -->
+      <div class="screen" id="screen-sos">
+        <div style="max-width:600px">
+          <button class="sos-btn" style="margin-bottom:20px">
+            <i class="ti ti-sos" style="font-size:22px"></i> Preciso de ajuda agora
+          </button>
+
+          <div class="card">
+            <div class="card-title">Termômetro emocional — Como você está hoje?</div>
+            <div class="termo-opts">
+              <div class="termo-opt" onclick="selTermo(this)">😄 Muito bem</div>
+              <div class="termo-opt" onclick="selTermo(this)">🙂 Bem</div>
+              <div class="termo-opt sel" onclick="selTermo(this)">😐 Mais ou menos</div>
+              <div class="termo-opt" onclick="selTermo(this)">😰 Ansioso(a)</div>
+              <div class="termo-opt" onclick="selTermo(this)">😢 Muito mal</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Diário emocional</div>
+            <div class="diary-entry">
+              <div class="diary-date">19/05/2026 · 10:32</div>
+              <div class="diary-text">Hoje me senti ansioso antes da aula de matemática. Fiz o exercício de respiração e ajudou bastante.</div>
+            </div>
+            <div class="diary-entry" style="border-left-color:var(--amber)">
+              <div class="diary-date">16/05/2026 · 15:45</div>
+              <div class="diary-text">Tive dificuldade em me concentrar. Preciso conversar com a psicóloga.</div>
+            </div>
+            <textarea class="form-textarea" placeholder="Como você está se sentindo hoje? Escreva aqui…" style="margin-top:12px"></textarea>
+            <button class="btn btn-primary" style="margin-top:8px"><i class="ti ti-send"></i> Registrar</button>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Trilhas personalizadas de apoio</div>
+            <div class="trilha-card">
+              <div class="trilha-icon" style="background:var(--purple-light);color:var(--purple)"><i class="ti ti-wind"></i></div>
+              <div>
+                <div class="trilha-title">Respiração guiada</div>
+                <div class="trilha-desc">Técnicas de respiração para controle da ansiedade · 5 min</div>
+                <button class="btn btn-sm" style="margin-top:8px"><i class="ti ti-player-play"></i> Iniciar</button>
+              </div>
+            </div>
+            <div class="trilha-card">
+              <div class="trilha-icon" style="background:var(--green-light);color:var(--green)"><i class="ti ti-book-2"></i></div>
+              <div>
+                <div class="trilha-title">Técnicas de estudo e foco</div>
+                <div class="trilha-desc">Organização do tempo, Pomodoro e mapas mentais · 10 min</div>
+                <button class="btn btn-sm" style="margin-top:8px"><i class="ti ti-player-play"></i> Iniciar</button>
+              </div>
+            </div>
+            <div class="trilha-card">
+              <div class="trilha-icon" style="background:var(--blue-light);color:var(--blue)"><i class="ti ti-heart"></i></div>
+              <div>
+                <div class="trilha-title">Bem-estar e autocuidado</div>
+                <div class="trilha-desc">Rotinas de cuidado, relaxamento progressivo · 8 min</div>
+                <button class="btn btn-sm" style="margin-top:8px"><i class="ti ti-player-play"></i> Iniciar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── MATERIAIS / FEED ── -->
+<div class="screen" id="screen-materiais">
+  <div class="feed-wrap">
+    <div class="card feed-composer">
+      <div class="card-title">Compartilhe no canal</div>
+      <div class="form-group"><label class="form-label">Título</label><input class="form-input" id="feed-title" placeholder="Ex.: 5 minutos para cuidar da mente"></div>
+      <div class="form-group"><label class="form-label">Publicação</label><textarea class="form-input" id="feed-text" rows="4" placeholder="Escreva uma reflexão, atividade, aviso ou material..."></textarea></div>
+      <div class="grid2">
+        <div class="form-group"><label class="form-label">Categoria</label><select class="form-select" id="feed-category"><option value="Bem-estar">Bem-estar</option><option value="Saúde mental">Saúde mental</option><option value="Competências socioemocionais">Competências socioemocionais</option><option value="Concentração">Concentração</option><option value="Comunicado">Comunicado</option></select></div>
+        <div class="form-group"><label class="form-label">Arquivo (opcional)</label><input class="form-input" type="file" id="feed-file" accept=".pdf,.jpg,.jpeg,.png,.mp4,.mp3"></div>
+      </div>
+      <div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-primary" onclick="publicarFeed()"><i class="ti ti-send"></i> Publicar</button></div>
+      <div id="feed-feedback"></div>
+    </div>
+    <div id="feed-pending-area" style="display:none"></div>
+    <div id="feed-list"><div class="card feed-empty">Carregando publicações…</div></div>
+  </div>
+</div>
+
+<!-- ── RELATÓRIOS ── -->
+      <div class="screen" id="screen-relatorios">
+        <div class="grid2" style="margin-bottom:16px">
+          <div class="card">
+            <div class="card-title">Filtros de relatório</div>
+            <div class="form-group">
+              <label class="form-label">Período</label>
+              <input type="month" class="form-input" value="2026-05">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Unidade SENAI</label>
+              <select class="form-select">
+                <option>Todas as unidades</option>
+                <option>Cabo Santo Agostinho</option><option>Goiana</option>
+                <option>Santo Amaro</option><option>Paulista</option><option>Areias</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Segmento de análise</label>
+              <select class="form-select">
+                <option>Geral</option><option>Gênero</option>
+                <option>Étnico-racial</option><option>Faixa etária</option>
+                <option>Curso / Modalidade</option>
+              </select>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:4px">
+              <button class="btn btn-primary" style="flex:1"><i class="ti ti-chart-bar"></i> Gerar relatório</button>
+              <button class="btn"><i class="ti ti-download"></i> PDF</button>
+              <button class="btn"><i class="ti ti-file-spreadsheet"></i> Excel</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Resumo — Maio 2026</div>
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;padding-bottom:10px;border-bottom:1px solid var(--border)">
+                <span style="color:var(--text2)">Atendimentos realizados</span>
+                <strong style="font-size:18px">47</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--text2)">Faltas registradas</span><strong>9</strong></div>
+              <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--text2)">Cancelamentos</span><strong>4</strong></div>
+              <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--text2)">Casos prioritários</span><strong style="color:var(--red)">3</strong></div>
+              <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--text2)">Sessões em grupo</span><strong>6</strong></div>
+              <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--text2)">Aprendizes únicos atendidos</span><strong>38</strong></div>
+              <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--text2)">SOS acionados</span><strong style="color:var(--red)">5</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Desempenho por unidade — Maio 2026</div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Unidade</th><th>Psicóloga</th><th>Modalidade</th>
+                <th>Atend.</th><th>Faltas</th><th>Prioritários</th><th>% Presença</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Cabo S. Agostinho</strong></td>
+                <td style="font-size:12px;color:var(--text2)">Yasminn Araújo</td>
+                <td><span class="badge badge-blue">Pres. + Rem.</span></td>
+                <td>18</td><td>3</td><td><span class="badge badge-red">2</span></td>
+                <td><span class="badge badge-green">83%</span></td>
+              </tr>
+              <tr>
+                <td><strong>Goiana</strong></td>
+                <td style="font-size:12px;color:var(--text2)">Raysa Silva</td>
+                <td><span class="badge badge-blue">Pres. + Rem.</span></td>
+                <td>12</td><td>2</td><td><span class="badge badge-gray">0</span></td>
+                <td><span class="badge badge-green">83%</span></td>
+              </tr>
+              <tr>
+                <td><strong>Santo Amaro</strong></td>
+                <td style="font-size:12px;color:var(--text2)">Rutiely Moura</td>
+                <td><span class="badge badge-blue">Pres. + Rem.</span></td>
+                <td>10</td><td>3</td><td><span class="badge badge-red">1</span></td>
+                <td><span class="badge badge-amber">70%</span></td>
+              </tr>
+              <tr>
+                <td><strong>Paulista</strong></td>
+                <td style="font-size:12px;color:var(--text2)">Raysa Silva</td>
+                <td><span class="badge badge-purple">Presencial</span></td>
+                <td>7</td><td>1</td><td><span class="badge badge-gray">0</span></td>
+                <td><span class="badge badge-green">86%</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL APRENDIZ ══ -->
+<div class="overlay" id="modal-aprendiz">
+  <div class="modal" style="width:480px">
+    <div class="modal-title" style="display:flex;align-items:center;gap:12px">
+      <div class="avatar avatar-lg">JM</div>
+      <div>
+        <div>João Matheus</div>
+        <div style="font-size:12px;font-weight:400;color:var(--text2)">RA 20240015 · Eletromecânica · Cabo S.A.</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:14px">
+      <span class="badge badge-green">Ativo</span>
+      <span class="badge badge-blue">Presencial</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px;margin-bottom:16px">
+      <div><span style="color:var(--text2)">Última sessão</span><br><strong>19/05/2026</strong></div>
+      <div><span style="color:var(--text2)">Total de sessões</span><br><strong>8</strong></div>
+      <div><span style="color:var(--text2)">Faltas</span><br><strong>0</strong></div>
+      <div><span style="color:var(--text2)">Status SOS</span><br><strong style="color:var(--green)">Sem alertas</strong></div>
+    </div>
+    <div style="font-size:13px;font-weight:600;margin-bottom:8px">Histórico de documentos</div>
+    <div style="font-size:12px;color:var(--text2);margin-bottom:14px">3 documentos · Acesso restrito à psicóloga</div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-primary btn-sm" onclick="go('atendimento');closeModal('modal-aprendiz')"><i class="ti ti-plus"></i> Novo atendimento</button>
+      <button class="btn btn-sm" onclick="closeModal('modal-aprendiz')">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<script src="api.js"></script>
+<script>
+  let currentProfile='psicologa';
+  let selectedProfile='psicologa';
+  let sessionData=null;
+  const profileApiMap={psicologa:'psicologo',pedagogica:'pedagogo',aprendiz:'aluno',diretoria:'diretoria'};
+  const profileData={
+    psicologa:{avatar:'YA',name:'Psicóloga',role:'Profissional PPA',badge:'Psicóloga',badgeClass:'badge-purple',nav:[{section:'Principal'},{id:'dashboard',label:'Dashboard',icon:'ti-layout-dashboard'},{id:'agenda',label:'Agenda',icon:'ti-calendar'},{id:'aprendizes',label:'Aprendizes',icon:'ti-users'},{section:'Atendimento'},{id:'atendimento',label:'Registro',icon:'ti-clipboard-heart'},{id:'grupo',label:'Grupos',icon:'ti-users-group'},{section:'Conteúdo & Dados'},{id:'materiais',label:'Materiais / Feed',icon:'ti-books'},{id:'relatorios',label:'Relatórios',icon:'ti-chart-bar'}],topBtn:{label:'Novo atendimento',icon:'ti-plus',screen:'atendimento'}},
+    pedagogica:{avatar:'PE',name:'Equipe Pedagógica',role:'Interlocutora de Aprendizagem',badge:'Pedagógico',badgeClass:'badge-blue',nav:[{section:'Principal'},{id:'dashboard',label:'Indicadores',icon:'ti-chart-bar'},{id:'aprendizes',label:'Aprendizes / Importação',icon:'ti-users'},{id:'agenda',label:'Agenda (resumo)',icon:'ti-calendar'},{section:'Conteúdo'},{id:'materiais',label:'Materiais / Feed',icon:'ti-books'}],topBtn:{label:'Ver indicadores',icon:'ti-chart-bar',screen:'dashboard'}},
+    aprendiz:{avatar:'AL',name:'Aprendiz',role:'SENAI/PE',badge:'Aprendiz',badgeClass:'badge-green',nav:[{section:'Minha área'},{id:'sos',label:'SOS & Bem-estar',icon:'ti-heart'},{id:'agenda',label:'Minha agenda',icon:'ti-calendar'},{section:'Conteúdo'},{id:'materiais',label:'Materiais / Feed',icon:'ti-books'}],topBtn:{label:'Solicitar atendimento',icon:'ti-plus',screen:'sos'}},
+    diretoria:{avatar:'DR',name:'Diretoria de Educação',role:'SENAI/PE',badge:'Gestão',badgeClass:'badge-amber',nav:[{section:'Monitoramento'},{id:'relatorios',label:'Relatórios',icon:'ti-chart-bar'},{id:'materiais',label:'Materiais / Feed',icon:'ti-books'}],topBtn:{label:'Exportar relatório',icon:'ti-download',screen:'relatorios'}}
+  };
+  const titles={dashboard:'Dashboard',agenda:'Agenda',aprendizes:'Aprendizes',atendimento:'Registro de Atendimento',grupo:'Atendimentos em Grupo',sos:'SOS Emocional & Bem-estar',materiais:'Canal de Materiais',relatorios:'Relatórios & Indicadores'};
+
+  function currentApiProfile(){return profileApiMap[selectedProfile];}
+  function feedback(id,msg,type='info'){const el=document.getElementById(id);if(!el)return; el.innerHTML='<div class="alert alert-'+(type==='error'?'danger':type)+'" style="margin-top:10px">'+escapeHtml(msg)+'</div>';}
+  function escapeHtml(v){return String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
+  function initials(name){return String(name||'').split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]).join('').toUpperCase()||'US';}
+
+  function showAuthTab(id){
+    document.querySelectorAll('.auth-tab').forEach(b=>b.classList.toggle('active',b.dataset.authTab===id));
+    document.querySelectorAll('.auth-panel').forEach(p=>p.classList.toggle('active',p.id==='auth-'+id));
+  }
+  function selectProfile(key,el){selectedProfile=key;document.querySelectorAll('.profile-opt').forEach(o=>o.classList.remove('active'));el.classList.add('active');document.getElementById('login-user').value='';document.getElementById('login-pass').value='';document.getElementById('login-user').focus();}
+
+  async function doLogin(){
+    const btn=document.getElementById('login-submit');btn.disabled=true;feedback('login-feedback','Validando usuário e senha…','info');
+    try{
+      const data=await apiRequest('/auth/login.php','POST',{perfil:currentApiProfile(),identificador:document.getElementById('login-user').value.trim(),senha:document.getElementById('login-pass').value});
+      sessionData=data;window.sessionData=data;currentProfile=selectedProfile;
+      applyProfile(data.usuario);
+      document.getElementById('login-page').style.display='none';document.getElementById('app-page').style.display='flex';
+      const first=profileData[currentProfile].nav.find(n=>n.id);if(first)go(first.id);
+      if(data.precisa_trocar_senha){openPasswordModal(true);}
+      if(currentProfile==='psicologa' || currentProfile==='pedagogica' || currentProfile==='aprendiz' || currentProfile==='diretoria'){loadFeed();}
+    }catch(e){feedback('login-feedback',e.message||'Não foi possível entrar.','error');}
+    finally{btn.disabled=false;}
+  }
+
+  async function doCadastro(){
+    try{
+      const data=await apiRequest('/auth/cadastro.php','POST',{perfil:'aluno',ra:document.getElementById('cad-ra').value.trim(),senha:document.getElementById('cad-pass').value,confirmacao:document.getElementById('cad-pass2').value});
+      feedback('cad-feedback',data.mensagem||'Cadastro ativado. Agora entre na plataforma.','success');
+      showAuthTab('entrar');selectedProfile='aprendiz';document.querySelectorAll('.profile-opt').forEach((o,i)=>o.classList.toggle('active',i===2));document.getElementById('login-user').value=document.getElementById('cad-ra').value.trim();
+    }catch(e){feedback('cad-feedback',e.message,'error');}
+  }
+
+  async function requestReset(){
+    try{
+      const data=await apiRequest('/auth/solicitar_recuperacao.php','POST',{perfil:document.getElementById('reset-profile').value,identificador:document.getElementById('reset-user').value.trim()});
+      feedback('reset-feedback',data.mensagem||'Solicitação processada.','success');
+      if(data.token_debug){feedback('reset-feedback','Ambiente de desenvolvimento: link de teste disponível. Token: '+data.token_debug,'success');showResetModal(data.token_debug);}
+    }catch(e){feedback('reset-feedback',e.message,'error');}
+  }
+
+  function applyProfile(user){const p=profileData[currentProfile];const name=user?.nome||p.name;document.getElementById('sb-avatar').textContent=initials(name);document.getElementById('sb-name').textContent=name;document.getElementById('sb-role').textContent=p.role;const tb=document.getElementById('top-badge');tb.textContent=p.badge;tb.className='badge '+p.badgeClass;const btn=document.getElementById('top-action-btn');btn.innerHTML='<i class="ti '+p.topBtn.icon+'"></i> '+p.topBtn.label;btn.onclick=()=>go(p.topBtn.screen);buildNav(p.nav);}
+  function buildNav(items){const nav=document.getElementById('nav-menu');nav.innerHTML='';items.forEach(item=>{if(item.section){const s=document.createElement('div');s.className='nav-section';s.textContent=item.section;nav.appendChild(s);}else{const d=document.createElement('div');d.className='nav-item';d.dataset.screen=item.id;d.innerHTML='<i class="ti '+item.icon+'"></i> '+item.label;d.onclick=()=>go(item.id);nav.appendChild(d);}});}
+  function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));const scr=document.getElementById('screen-'+id);if(scr)scr.classList.add('active');document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));const ni=document.querySelector('.nav-item[data-screen="'+id+'"]');if(ni)ni.classList.add('active');document.getElementById('page-title').textContent=titles[id]||id;if(id==='materiais')loadFeed();}
+  function setTab(el,id){const screen=el.closest('.screen')||el.closest('.content');screen.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');const prefix=id.split('-')[0]+'-';screen.querySelectorAll('[id^="'+prefix+'"]').forEach(s=>s.style.display='none');const target=document.getElementById(id);if(target)target.style.display='';}
+  function selTermo(el){document.querySelectorAll('.termo-opt').forEach(o=>o.classList.remove('sel'));el.classList.add('sel');}
+  function openAprendiz(){document.getElementById('modal-aprendiz').classList.add('show');}
+  function closeModal(id){const el=document.getElementById(id);if(el)el.classList.remove('show');}
+  function openPasswordModal(){let el=document.getElementById('modal-password');if(!el){el=document.createElement('div');el.className='overlay show';el.id='modal-password';el.innerHTML='<div class="modal" style="width:420px"><div class="modal-title">Troca de senha</div><div style="font-size:12px;color:var(--text2);margin-bottom:14px">No primeiro acesso, a troca de senha é obrigatória.</div><div class="form-group"><label class="form-label">Senha atual</label><input class="form-input" id="pwd-current" type="password"></div><div class="form-group"><label class="form-label">Nova senha</label><input class="form-input" id="pwd-new" type="password"></div><div class="form-group"><label class="form-label">Confirmar nova senha</label><input class="form-input" id="pwd-new2" type="password"></div><button class="btn btn-primary btn-full" onclick="changePassword()">Salvar nova senha</button><div id="pwd-feedback"></div></div>';document.body.appendChild(el);}el.classList.add('show');}
+  async function changePassword(){try{const nova=document.getElementById('pwd-new').value;const conf=document.getElementById('pwd-new2').value;if(nova!==conf)throw new Error('As novas senhas não conferem.');await apiRequest('/auth/trocar_senha.php','POST',{senha_atual:document.getElementById('pwd-current').value,senha_nova:nova},{csrf:sessionData.csrf_token});}catch(e){feedback('pwd-feedback',e.message,'error');return;}feedback('pwd-feedback','Senha atualizada com sucesso.','success');setTimeout(()=>closeModal('modal-password'),700);}
+  function showResetModal(token){let el=document.getElementById('modal-reset');if(!el){el=document.createElement('div');el.className='overlay';el.id='modal-reset';el.innerHTML='<div class="modal" style="width:420px"><div class="modal-title">Redefinir senha</div><div class="form-group"><label class="form-label">Token</label><input class="form-input" id="reset-token"></div><div class="form-group"><label class="form-label">Nova senha</label><input class="form-input" id="reset-pass" type="password"></div><div class="form-group"><label class="form-label">Confirmar senha</label><input class="form-input" id="reset-pass2" type="password"></div><button class="btn btn-primary btn-full" onclick="doResetPassword()">Redefinir senha</button><div id="reset2-feedback"></div></div>';document.body.appendChild(el);}document.getElementById('reset-token').value=token;el.classList.add('show');}
+  async function doResetPassword(){try{const res=await apiRequest('/auth/redefinir_senha.php','POST',{token:document.getElementById('reset-token').value,senha:document.getElementById('reset-pass').value,confirmacao:document.getElementById('reset-pass2').value});feedback('reset2-feedback',res.mensagem||'Senha redefinida.','success');setTimeout(()=>closeModal('modal-reset'),800);}catch(e){feedback('reset2-feedback',e.message,'error');}}
+
+  async function loadFeed(){const list=document.getElementById('feed-list');if(!list||!sessionData)return;list.innerHTML='<div class="card feed-empty">Carregando publicações…</div>';try{const data=await apiRequest('/api/feed.php','GET');renderFeed(data.posts||[]);if(currentProfile==='pedagogica')loadPendingFeed();}catch(e){list.innerHTML='<div class="card feed-empty">'+escapeHtml(e.message)+'</div>';}}
+  async function loadPendingFeed(){const area=document.getElementById('feed-pending-area');if(!area)return;try{const rows=await apiRequest('/api/pedagogica/feed.php','GET');if(!rows.length){area.style.display='none';area.innerHTML='';return;}area.style.display='block';area.innerHTML='<div class="card" style="margin-bottom:16px"><div class="card-title">Publicações pendentes</div>'+rows.map(p=>'<div style="padding:12px 0;border-top:1px solid var(--border)"><strong>'+escapeHtml(p.autor_nome)+'</strong><div style="font-size:13px;margin:4px 0">'+escapeHtml(p.titulo||p.texto.slice(0,100))+'</div><div style="display:flex;gap:8px"><button class="btn btn-primary btn-sm" onclick="moderateFeed('+p.id+',true)">Aprovar</button><button class="btn btn-sm" onclick="moderateFeed('+p.id+',false)">Recusar</button></div></div>').join('')+'</div>';}catch(e){area.style.display='none';}}
+  async function moderateFeed(id,aprovar){try{await apiRequest('/api/pedagogica/feed.php','PUT',{id,aprovar});loadFeed();}catch(e){alert(e.message);}}
+  function renderFeed(posts){const list=document.getElementById('feed-list');if(!posts.length){list.innerHTML='<div class="card feed-empty">Ainda não há publicações aprovadas.</div>';return;}list.innerHTML=posts.map(renderPost).join('');}
+  function renderPost(p){const media=p.arquivo_path?'<div class="feed-media">'+renderMedia(p.arquivo_path)+'</div>':'';const reaction=p.minha_reacao?'active':'';const comments=(p.comentarios||[]).map(c=>'<div class="feed-comment"><strong>'+escapeHtml(c.autor_nome)+'</strong> '+escapeHtml(c.texto)+'</div>').join('');return '<div class="card feed-post"><div class="feed-head"><div class="feed-author"><div class="avatar">'+escapeHtml(initials(p.autor_nome))+'</div><div><div style="font-weight:600;font-size:13px">'+escapeHtml(p.autor_nome)+'</div><div style="font-size:11px;color:var(--text2)">'+escapeHtml(p.categoria||'Geral')+' · '+new Date(p.criado_em.replace(' ','T')).toLocaleString('pt-BR')+'</div></div></div>'+(p.autor_tipo==='psicologo'&&p.status==='pendente'?'<span class="badge badge-amber">Aguardando aprovação</span>':'')+'</div><div class="feed-body">'+(p.titulo?'<div class="feed-title">'+escapeHtml(p.titulo)+'</div>':'')+media+'<div class="feed-text">'+escapeHtml(p.texto)+'</div>'+(p.link_externo?'<div style="margin-top:10px"><a href="'+escapeHtml(p.link_externo)+'" target="_blank" rel="noopener">Abrir link</a></div>':'')+'</div><div class="feed-actions"><button class="feed-action '+reaction+'" onclick="reactFeed('+p.id+',\'curtir\')">♥ '+p.reacoes+'</button><button class="feed-action" onclick="toggleComments('+p.id+')">💬 '+((p.comentarios||[]).length)+'</button>'+(p.autor_tipo===currentApiProfile()&&Number(p.autor_id)===Number(sessionData.usuario.id)?'<button class="feed-action" onclick="deleteFeed('+p.id+')">Excluir</button>':'')+'</div><div class="feed-comments" id="comments-'+p.id+'" style="display:none">'+comments+'<div class="feed-comment-form"><input class="form-input" id="comment-'+p.id+'" placeholder="Escreva um comentário…"><button class="btn btn-sm btn-primary" onclick="commentFeed('+p.id+')">Enviar</button></div></div></div>';}
+  function renderMedia(path){const url='../'+path;if(/\.((jpg|jpeg|png))$/i.test(path))return '<img src="'+url+'" alt="Material">';if(/\.mp4$/i.test(path))return '<video controls src="'+url+'"></video>';if(/\.mp3$/i.test(path))return '<audio controls src="'+url+'"></audio>';return '<a href="'+url+'" target="_blank" rel="noopener" style="padding:28px">📎 Abrir arquivo</a>';}
+  function toggleComments(id){const e=document.getElementById('comments-'+id);e.style.display=e.style.display==='none'?'block':'none';}
+  async function publicarFeed(){try{const fd=new FormData();fd.append('titulo',document.getElementById('feed-title').value);fd.append('texto',document.getElementById('feed-text').value);fd.append('categoria',document.getElementById('feed-category').value);const file=document.getElementById('feed-file').files[0];if(file)fd.append('arquivo',file);const data=await apiRequest('/api/feed.php','POST',fd);feedback('feed-feedback',data.mensagem||'Publicado.','success');document.getElementById('feed-title').value='';document.getElementById('feed-text').value='';document.getElementById('feed-file').value='';loadFeed();}catch(e){feedback('feed-feedback',e.message,'error');}}
+  async function reactFeed(id,tipo){try{await apiRequest('/api/feed.php','PUT',{id,tipo});loadFeed();}catch(e){alert(e.message);}}
+  async function commentFeed(id){try{const texto=document.getElementById('comment-'+id).value.trim();if(!texto)return;await apiRequest('/api/feed.php?comentario=1','POST',{post_id:id,texto});loadFeed();setTimeout(()=>toggleComments(id),150);}catch(e){alert(e.message);}}
+  async function deleteFeed(id){if(!confirm('Excluir esta publicação?'))return;try{await fetch(API_BASE+'/api/feed.php?id='+id,{method:'DELETE',credentials:'include',headers:{'X-CSRF-Token':sessionData.csrf_token}});loadFeed();}catch(e){alert(e.message);}}
+
+  document.querySelectorAll('.overlay').forEach(ov=>ov.addEventListener('click',e=>{if(e.target===ov)ov.classList.remove('show');}));
+  async function doLogout(){try{await apiRequest('/auth/logout.php','POST',null);}catch(e){}sessionData=null;document.getElementById('app-page').style.display='none';document.getElementById('login-page').style.display='flex';showAuthTab('entrar');selectedProfile='psicologa';document.querySelectorAll('.profile-opt').forEach((o,i)=>o.classList.toggle('active',i===0));document.getElementById('login-user').value='';document.getElementById('login-pass').value='';}
+  window.addEventListener('load',async()=>{try{const data=await apiRequest('/auth/me.php');sessionData=data;window.sessionData=data;const frontKey=Object.entries(profileApiMap).find(([,v])=>v===data.perfil)?.[0];if(frontKey){currentProfile=selectedProfile=frontKey;applyProfile(data.usuario);document.getElementById('login-page').style.display='none';document.getElementById('app-page').style.display='flex';const first=profileData[currentProfile].nav.find(n=>n.id);if(first)go(first.id);}}catch(e){}});
+</script>
+
+<script>Object.defineProperty(window,"currentProfile",{configurable:true,get:function(){return currentProfile},set:function(v){currentProfile=v}});</script>
+<script src="functional.js"></script>
+</body>
+</html>
